@@ -263,6 +263,12 @@ function updateClock(){document.getElementById('now').textContent=new Date().toL
 
 renderToday();updateClock();setDefaultActivityDateTime();setInterval(updateClock,30000);
 window.addEventListener('afterprint',()=>document.querySelectorAll('.page').forEach(p=>p.classList.remove('print-active')));
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('Service worker:', err));
+  });
+}
+
 </script>
 </body>
 </html>
