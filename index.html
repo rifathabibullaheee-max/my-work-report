@@ -6,1663 +6,4232 @@
 <meta name="theme-color" content="#2563eb">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
 <title>My Work Report</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
---blue:#2563eb;--dark:#0f172a;--muted:#64748b;--bg:#f1f5f9;
---card:#fff;--green:#16a34a;--red:#dc2626;--purple:#7c3aed;--line:#e2e8f0
+  --blue:#2563eb;
+  --dark:#0f172a;
+  --muted:#64748b;
+  --bg:#f1f5f9;
+  --card:#fff;
+  --green:#16a34a;
+  --red:#dc2626;
+  --purple:#7c3aed;
+  --line:#e2e8f0;
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:#0f172a}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer;border:0}
-.hidden{display:none!important}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:#0f172a;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   LOGIN
+========================= */
 
 .login-wrap{
-min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
+
 .login-card{
-background:white;width:100%;max-width:420px;padding:28px;border-radius:18px;
-box-shadow:0 10px 40px #0f172a20
+  background:white;
+  width:100%;
+  max-width:420px;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 10px 40px #0f172a20;
 }
-.login-card h1{text-align:center;margin:0 0 8px}
-.login-card p{text-align:center;color:var(--muted)}
-.field{margin:12px 0}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
-.field input,.field textarea,.field select{
-width:100%;padding:11px;border:1px solid var(--line);border-radius:9px
-}
-.primary{background:var(--blue);color:white;padding:11px 17px;border-radius:9px;font-weight:700}
-.secondary{background:#e2e8f0;padding:11px 17px;border-radius:9px}
-.danger{background:#fee2e2;color:#991b1b;padding:8px 10px;border-radius:8px}
-.small{padding:7px 9px;border-radius:8px;background:#eff6ff;color:#1d4ed8}
-.notice{font-size:12px;color:var(--muted)}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
-.app{display:flex;min-height:100vh}
+.login-card h1{
+  text-align:center;
+  margin:0 0 8px;
+}
+
+.login-card p{
+  text-align:center;
+  color:var(--muted);
+}
+
+.field{
+  margin:12px 0;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:9px;
+}
+
+.primary{
+  background:var(--blue);
+  color:white;
+  padding:11px 17px;
+  border-radius:9px;
+  font-weight:700;
+}
+
+.secondary{
+  background:#e2e8f0;
+  padding:11px 17px;
+  border-radius:9px;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#991b1b;
+  padding:8px 10px;
+  border-radius:8px;
+}
+
+.small{
+  padding:7px 9px;
+  border-radius:8px;
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.notice{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
 .side{
-width:240px;background:linear-gradient(180deg,#0f2747,#10243d);
-color:white;padding:18px 14px;position:sticky;top:0;height:100vh
+  width:240px;
+  background:linear-gradient(180deg,#0f2747,#10243d);
+  color:white;
+  padding:18px 14px;
+  position:sticky;
+  top:0;
+  height:100vh;
 }
-.brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:20px;margin:4px 8px 24px}
-.brand span{font-size:28px}
-.nav button{
-width:100%;text-align:left;background:transparent;color:#dbeafe;
-padding:12px 14px;border-radius:10px;margin:3px 0
-}
-.nav button.active,.nav button:hover{background:#2563eb;color:white}
-.content{flex:1;padding:20px;max-width:1500px;margin:auto;width:100%}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.date{color:var(--muted);font-size:14px}
-.status{background:#dcfce7;color:#166534;padding:8px 12px;border-radius:999px;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.action{
-padding:18px;border-radius:14px;color:white;font-weight:800;font-size:17px;
-min-height:76px;text-align:left
-}
-.officein{background:#16a34a}.officeout{background:#dc2626}.home{background:#7c3aed}
-.card{
-background:var(--card);border:1px solid var(--line);border-radius:14px;
-padding:18px;box-shadow:0 2px 8px #0f172a08;margin-top:14px
-}
-.inputgrid{display:grid;grid-template-columns:1fr 230px;gap:14px}
-.tabs{display:flex;gap:6px;margin-bottom:10px}
-.tab{padding:9px 14px;border-radius:9px;background:#e2e8f0}
-.tab.active{background:#dbeafe;color:#1d4ed8;font-weight:700}
-.mic{
-height:115px;border:2px dashed #bfdbfe;background:#eff6ff;border-radius:12px;
-display:flex;flex-direction:column;align-items:center;justify-content:center;
-color:#2563eb;font-weight:700
-}
-.mic .big{font-size:35px}
-.textarea{
-width:100%;height:115px;border:1px solid var(--line);border-radius:10px;
-padding:12px;resize:vertical
-}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.stat{padding:14px;border-radius:12px;background:#f8fafc;border:1px solid var(--line)}
-.stat b{display:block;font-size:22px;margin-top:4px}
-.tablewrap{overflow:auto}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{
-border-bottom:1px solid var(--line);padding:11px;text-align:left;vertical-align:top
-}
-.table th{font-size:12px;text-transform:uppercase;color:var(--muted)}
-.report-actions{display:flex;gap:8px;justify-content:flex-end}
 
-.mobilebar{display:none}
+.brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:800;
+  font-size:20px;
+  margin:4px 8px 24px;
+}
+
+.brand span{
+  font-size:28px;
+}
+
+.nav button{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  color:#dbeafe;
+  padding:12px 14px;
+  border-radius:10px;
+  margin:3px 0;
+}
+
+.nav button.active,
+.nav button:hover{
+  background:#2563eb;
+  color:white;
+}
+
+.content{
+  flex:1;
+  padding:20px;
+  max-width:1500px;
+  margin:auto;
+  width:100%;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.date{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.status{
+  background:#dcfce7;
+  color:#166534;
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:700;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.action{
+  padding:18px;
+  border-radius:14px;
+  color:white;
+  font-weight:800;
+  font-size:17px;
+  min-height:76px;
+  text-align:left;
+}
+
+.officein{
+  background:#16a34a;
+}
+
+.officeout{
+  background:#dc2626;
+}
+
+.home{
+  background:#7c3aed;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 2px 8px #0f172a08;
+  margin-top:14px;
+}
+
+.inputgrid{
+  display:grid;
+  grid-template-columns:1fr 230px;
+  gap:14px;
+}
+
+.tabs{
+  display:flex;
+  gap:6px;
+  margin-bottom:10px;
+}
+
+.tab{
+  padding:9px 14px;
+  border-radius:9px;
+  background:#e2e8f0;
+}
+
+.tab.active{
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-weight:700;
+}
+
+.mic{
+  height:115px;
+  border:2px dashed #bfdbfe;
+  background:#eff6ff;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#2563eb;
+  font-weight:700;
+}
+
+.mic .big{
+  font-size:35px;
+}
+
+.textarea{
+  width:100%;
+  height:115px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  resize:vertical;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.stat{
+  padding:14px;
+  border-radius:12px;
+  background:#f8fafc;
+  border:1px solid var(--line);
+}
+
+.stat b{
+  display:block;
+  font-size:22px;
+  margin-top:4px;
+}
+
+.tablewrap{
+  overflow:auto;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th,
+.table td{
+  border-bottom:1px solid var(--line);
+  padding:11px;
+  text-align:left;
+  vertical-align:top;
+}
+
+.table th{
+  font-size:12px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.report-actions{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+}
+
+.mobilebar{
+  display:none;
+}
+
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
-position:fixed;inset:0;background:#0f172a66;display:flex;
-align-items:center;justify-content:center;padding:16px;z-index:10
+  position:fixed;
+  inset:0;
+  background:#0f172a66;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:10;
 }
-.modalbox{background:white;border-radius:16px;max-width:650px;width:100%;padding:20px}
+
+.modalbox{
+  background:white;
+  border-radius:16px;
+  max-width:650px;
+  width:100%;
+  padding:20px;
+}
+
 .toast{
-position:fixed;right:18px;bottom:18px;background:#0f172a;color:white;
-padding:12px 16px;border-radius:10px;display:none;z-index:20
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  background:#0f172a;
+  color:white;
+  padding:12px 16px;
+  border-radius:10px;
+  display:none;
+  z-index:20;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:900px){
-.side{display:none}
-.content{padding:12px 10px 80px}
-.grid{grid-template-columns:1fr 1fr 1fr}
-.inputgrid{grid-template-columns:1fr}
-.summary{grid-template-columns:1fr 1fr}
-.mobilebar{
-display:flex;position:fixed;bottom:0;left:0;right:0;background:white;
-border-top:1px solid var(--line);z-index:9
-}
-.mobilebar button{flex:1;padding:12px 4px;background:white;font-size:11px}
-.mobilebar button.active{color:var(--blue);font-weight:800}
-.top h1{font-size:20px}
-.action{font-size:14px;padding:13px;min-height:68px}
-.table th,.table td{padding:8px;font-size:12px}
+
+  .side{
+    display:none;
+  }
+
+  .content{
+    padding:12px 10px 80px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+
+  .inputgrid{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .mobilebar{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    border-top:1px solid var(--line);
+    z-index:9;
+  }
+
+  .mobilebar button{
+    flex:1;
+    padding:12px 4px;
+    background:white;
+    font-size:11px;
+  }
+
+  .mobilebar button.active{
+    color:var(--blue);
+    font-weight:800;
+  }
+
+  .top h1{
+    font-size:20px;
+  }
+
+  .action{
+    font-size:14px;
+    padding:13px;
+    min-height:68px;
+  }
+
+  .table th,
+  .table td{
+    padding:8px;
+    font-size:12px;
+  }
 }
 
+
+/* =====================================================
+   PRINT
+===================================================== */
+
 @media print{
-@page{size:A4 portrait;margin:10mm}
-.side,.top,.action,.inputgrid,.report-actions,.notice,
-.mobilebar,.no-print,.report-controls{display:none!important}
-.content{max-width:none!important;width:100%!important;padding:0!important}
-.page{display:none!important}
-.page.print-active{display:block!important}
-.card{box-shadow:none!important;border:0!important;padding:0!important;margin:0!important}
-.print-area{display:block!important}
-.print-header{margin-bottom:7mm}
-.company-name{text-align:center;font-size:15px;font-weight:700}
-.report-main-title{text-align:center;font-size:18px;font-weight:800;margin:4mm 0}
-.report-info{
-display:flex;justify-content:space-between;font-size:10px;
-padding-bottom:4mm;border-bottom:1px solid #222
+
+  @page{
+    size:A4 portrait;
+    margin:10mm;
+  }
+
+  /*
+     IMPORTANT:
+     When printing, ONLY .print-area is visible.
+     This removes the normal Weekly/Monthly page heading
+     and its Date/Time/Activity/Action table.
+  */
+
+  body{
+    background:#fff!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  .side,
+  .top,
+  .mobilebar,
+  .modal,
+  .toast,
+  .no-print{
+    display:none!important;
+  }
+
+  .content{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  .page{
+    display:none!important;
+  }
+
+  .page.print-active{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  /*
+     Hide EVERYTHING inside the report card
+     except the generated print-area.
+  */
+
+  .page.print-active > .card{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+  }
+
+  .page.print-active > .card > *:not(.print-area){
+    display:none!important;
+  }
+
+  .page.print-active .print-area{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  /*
+     REPORT HEADER
+  */
+
+  .page.print-active .print-header{
+    display:block!important;
+    width:100%!important;
+    margin:0 0 6mm!important;
+    padding:0!important;
+    text-align:center!important;
+  }
+
+  .page.print-active .company-name{
+    display:block!important;
+    width:100%!important;
+    text-align:center!important;
+    font-size:17px!important;
+    font-weight:800!important;
+    margin:0 0 3mm!important;
+    padding:0!important;
+  }
+
+  .page.print-active .report-main-title{
+    display:block!important;
+    width:100%!important;
+    text-align:center!important;
+    font-size:20px!important;
+    font-weight:800!important;
+    margin:0 0 5mm!important;
+    padding:0!important;
+  }
+
+  /*
+     REPORT INFORMATION
+  */
+
+  .page.print-active .report-info{
+    display:flex!important;
+    justify-content:space-between!important;
+    align-items:flex-start!important;
+    width:100%!important;
+    text-align:left!important;
+    font-size:10px!important;
+    line-height:1.4!important;
+    padding:0 0 4mm!important;
+    margin:0!important;
+    border-bottom:1px solid #222!important;
+  }
+
+  /*
+     PRINT TABLE
+  */
+
+  .page.print-active .print-table{
+    display:table!important;
+    width:100%!important;
+    border-collapse:collapse!important;
+    margin:4mm 0 0!important;
+    padding:0!important;
+  }
+
+  .page.print-active .print-table th,
+  .page.print-active .print-table td{
+    border-bottom:1px solid #bbb!important;
+    padding:5px!important;
+    font-size:10px!important;
+    text-align:left!important;
+    vertical-align:top!important;
+  }
+
+  .page.print-active .print-table th{
+    border-top:1px solid #222!important;
+    font-weight:800!important;
+  }
+
+  /*
+     SIGNATURE
+  */
+
+  .page.print-active .signature-block{
+    display:flex!important;
+    justify-content:space-between!important;
+    align-items:flex-start!important;
+    width:100%!important;
+    margin-top:18mm!important;
+    font-size:10px!important;
+  }
+
+  .page.print-active .signature-col{
+    width:42%!important;
+  }
+
+  .page.print-active .signature-line{
+    width:65mm!important;
+    border-top:1px solid #222!important;
+    margin-bottom:3mm!important;
+  }
+
+  .page.print-active .signature-name{
+    font-weight:700!important;
+  }
+
 }
-.print-table{width:100%;border-collapse:collapse}
-.print-table th,.print-table td{
-border-bottom:1px solid #bbb;padding:5px;font-size:10px
-}
-.print-table th{border-top:1px solid #222}
-.signature-block{
-display:flex;justify-content:space-between;margin-top:18mm;font-size:10px
-}
-.signature-col{width:42%}
-.signature-line{width:65mm;border-top:1px solid #222;margin-bottom:3mm}
-.signature-name{font-weight:700}
+
+
+/* =========================
+   NORMAL PRINT AREA HIDDEN
+========================= */
+
+.print-area{
+  display:none;
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- LOGIN -->
+
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
 <div id="loginScreen" class="login-wrap">
-<div class="login-card">
-<h1>📋 My Work Report</h1>
-<p>Login to sync your work data</p>
 
-<div class="field">
-<label>Email</label>
-<input id="loginEmail" type="email" placeholder="Enter your email">
+  <div class="login-card">
+
+    <h1>📋 My Work Report</h1>
+
+    <p>Login to sync your work data</p>
+
+    <div class="field">
+      <label>Email</label>
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Enter your email"
+        autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Enter password"
+        autocomplete="current-password">
+    </div>
+
+    <div class="row">
+
+      <button
+        class="primary"
+        style="flex:1"
+        onclick="login()">
+        Login
+      </button>
+
+      <button
+        class="secondary"
+        style="flex:1"
+        onclick="signup()">
+        Create Account
+      </button>
+
+    </div>
+
+    <p
+      id="authMessage"
+      class="notice">
+    </p>
+
+  </div>
+
 </div>
 
-<div class="field">
-<label>Password</label>
-<input id="loginPassword" type="password" placeholder="Enter password">
-</div>
 
-<div class="row">
-<button class="primary" style="flex:1" onclick="login()">Login</button>
-<button class="secondary" style="flex:1" onclick="signup()">Create Account</button>
-</div>
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
 
-<p id="authMessage" class="notice"></p>
-</div>
-</div>
-
-
-<!-- APP -->
 <div id="app" class="app hidden">
 
-<aside class="side">
-<div class="brand">
-<span>📋</span>
-<div>
-My Work Report
-<small style="display:block;font-size:10px;font-weight:500;color:#bfdbfe">
-Smart Log • Easy Report
-</small>
+
+  <!-- SIDEBAR -->
+
+  <aside class="side">
+
+    <div class="brand">
+
+      <span>📋</span>
+
+      <div>
+
+        My Work Report
+
+        <small
+          style="
+          display:block;
+          font-size:10px;
+          font-weight:500;
+          color:#bfdbfe">
+          Smart Log • Cloud Sync
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="nav">
+
+      <button
+        data-page="dashboard"
+        class="active">
+        🏠 Dashboard
+      </button>
+
+      <button data-page="today">
+        🗓️ Today's Activities
+      </button>
+
+      <button data-page="weekly">
+        📊 Weekly Report
+      </button>
+
+      <button data-page="monthly">
+        📅 Monthly Report
+      </button>
+
+      <button data-page="settings">
+        ⚙️ Settings
+      </button>
+
+    </div>
+
+
+    <div
+      style="
+      position:absolute;
+      bottom:20px;
+      left:18px;
+      right:18px;
+      font-size:11px;
+      color:#bfdbfe">
+
+      ☁️ Cloud sync enabled
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="content">
+
+
+    <!-- TOP -->
+
+    <div class="top">
+
+      <div>
+
+        <h1 style="margin:0">
+          My Work Report
+        </h1>
+
+        <div
+          class="date"
+          id="now">
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div
+          class="status"
+          id="status">
+          ● Ready
+        </div>
+
+        <button
+          class="secondary"
+          onclick="logout()">
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DASHBOARD
+    ================================================== -->
+
+    <section
+      id="dashboard"
+      class="page">
+
+
+      <div class="grid">
+
+        <button
+          class="action officein"
+          onclick="markStatus('Office In')">
+
+          🏢 Office In
+
+          <br>
+
+          <small>
+            Start office day
+          </small>
+
+        </button>
+
+
+        <button
+          class="action officeout"
+          onclick="markStatus('Office Out')">
+
+          🚪 Office Out
+
+          <br>
+
+          <small>
+            End office day
+          </small>
+
+        </button>
+
+
+        <button
+          class="action home"
+          onclick="addHomePrompt()">
+
+          🏠 Home Work
+
+          <br>
+
+          <small>
+            Add work from home
+          </small>
+
+        </button>
+
+      </div>
+
+
+      <!-- ADD ACTIVITY -->
+
+      <div class="card">
+
+        <h2 style="margin-top:0">
+          Add Activity
+        </h2>
+
+
+        <div class="tabs">
+
+          <button
+            class="tab active"
+            id="voiceTab"
+            onclick="setInput('voice')">
+
+            🎤 Voice Input
+
+          </button>
+
+
+          <button
+            class="tab"
+            id="textTab"
+            onclick="setInput('text')">
+
+            ⌨️ Text Input
+
+          </button>
+
+        </div>
+
+
+        <div class="inputgrid">
+
+
+          <div id="inputArea">
+
+            <button
+              class="mic"
+              style="width:100%"
+              onclick="startVoice()">
+
+              <span class="big">
+                🎙️
+              </span>
+
+              Tap to speak
+
+              <br>
+
+              <small id="voiceState">
+                Voice input
+              </small>
+
+            </button>
+
+          </div>
+
+
+          <div>
+
+            <div class="field">
+
+              <label>
+                Activity Date
+              </label>
+
+              <input
+                id="activityDate"
+                type="date">
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Activity Time
+              </label>
+
+              <input
+                id="activityTime"
+                type="time">
+
+            </div>
+
+
+            <button
+              class="primary"
+              style="width:100%"
+              onclick="saveActivity()">
+
+              💾 Save Activity
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <p class="notice">
+
+          Date and time default to now.
+          You can change them before saving.
+
+        </p>
+
+      </div>
+
+
+      <!-- TODAY -->
+
+      <div class="card">
+
+        <h2 style="margin-top:0">
+          Today's Activities
+        </h2>
+
+
+        <div
+          class="summary"
+          id="summary">
+        </div>
+
+
+        <div class="tablewrap">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Time
+                </th>
+
+                <th>
+                  Activity
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody
+              id="todayRows">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         TODAY
+    ================================================== -->
+
+    <section
+      id="today"
+      class="page hidden">
+
+      <div class="card">
+
+        <h2>
+          Today's Activities
+        </h2>
+
+        <div
+          class="tablewrap">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Time
+                </th>
+
+                <th>
+                  Activity
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody
+              id="todayRows2">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         WEEKLY REPORT
+    ================================================== -->
+
+    <section
+      id="weekly"
+      class="page hidden">
+
+      <div class="card">
+
+        <div class="row"
+             style="justify-content:space-between">
+
+          <div>
+
+            <h2 style="margin:0">
+              Weekly Report
+            </h2>
+
+            <div class="notice">
+              Review and edit before printing
+            </div>
+
+          </div>
+
+
+          <div class="report-actions">
+
+            <button
+              class="primary"
+              onclick="printReport('week')">
+
+              🖨️ Print
+
+            </button>
+
+
+            <button
+              class="secondary"
+              onclick="exportCsv('week')">
+
+              📗 Excel/CSV
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="row report-controls"
+          style="margin:15px 0">
+
+          <input
+            type="date"
+            id="weekStart">
+
+          <input
+            type="date"
+            id="weekEnd">
+
+          <button
+            class="primary"
+            onclick="renderReport('week')">
+
+            Generate
+
+          </button>
+
+        </div>
+
+
+        <div class="tablewrap">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Date
+                </th>
+
+                <th>
+                  Time
+                </th>
+
+                <th>
+                  Activity
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody
+              id="weekRows">
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <div
+          class="print-area"
+          id="weekPrint">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MONTHLY REPORT
+    ================================================== -->
+
+    <section
+      id="monthly"
+      class="page hidden">
+
+      <div class="card">
+
+        <div class="row"
+             style="justify-content:space-between">
+
+          <div>
+
+            <h2 style="margin:0">
+              Monthly Report
+            </h2>
+
+            <div class="notice">
+              All saved months remain until you delete them.
+            </div>
+
+          </div>
+
+
+          <div class="report-actions">
+
+            <button
+              class="primary"
+              onclick="printReport('month')">
+
+              🖨️ Print
+
+            </button>
+
+
+            <button
+              class="secondary"
+              onclick="exportCsv('month')">
+
+              📗 Excel/CSV
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="row report-controls"
+          style="margin:15px 0">
+
+          <input
+            type="month"
+            id="monthPick">
+
+          <button
+            class="primary"
+            onclick="renderReport('month')">
+
+            Generate
+
+          </button>
+
+        </div>
+
+
+        <div class="tablewrap">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Date
+                </th>
+
+                <th>
+                  Time
+                </th>
+
+                <th>
+                  Activity
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody
+              id="monthRows">
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <div
+          class="print-area"
+          id="monthPrint">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SETTINGS
+    ================================================== -->
+
+    <section
+      id="settings"
+      class="page hidden">
+
+      <div class="card">
+
+        <h2>
+          Settings
+        </h2>
+
+
+        <p>
+          <b>
+            Automatic deletion is OFF.
+          </b>
+        </p>
+
+
+        <p class="notice">
+
+          Your data will not be deleted automatically.
+
+        </p>
+
+
+        <div class="field">
+
+          <label>
+            Select month to delete
+          </label>
+
+          <input
+            id="deleteMonth"
+            type="month">
+
+        </div>
+
+
+        <button
+          class="danger"
+          onclick="deleteSelectedMonth()">
+
+          🗑️ Delete Selected Month
+
+        </button>
+
+
+        <hr
+          style="
+          border:0;
+          border-top:1px solid var(--line);
+          margin:20px 0">
+
+
+        <button
+          class="danger"
+          onclick="clearAll()">
+
+          ⚠️ Delete ALL My Data
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
 </div>
-</div>
-
-<div class="nav">
-<button data-page="dashboard" class="active">🏠 Dashboard</button>
-<button data-page="today">🗓️ Today's Activities</button>
-<button data-page="weekly">📊 Weekly Report</button>
-<button data-page="monthly">📅 Monthly Report</button>
-<button data-page="settings">⚙️ Settings</button>
-</div>
-
-<div style="position:absolute;bottom:20px;left:18px;right:18px;font-size:11px;color:#bfdbfe">
-Cloud sync enabled
-</div>
-</aside>
 
 
-<main class="content">
-
-<div class="top">
-<div>
-<h1 style="margin:0">My Work Report</h1>
-<div class="date" id="now"></div>
-</div>
-
-<div class="row">
-<div class="status" id="status">● Ready</div>
-<button class="secondary" onclick="logout()">Logout</button>
-</div>
-</div>
-
-
-<!-- DASHBOARD -->
-<section id="dashboard" class="page">
-
-<div class="grid">
-<button class="action officein" onclick="markStatus('Office In')">
-🏢 Office In<br><small>Start office day</small>
-</button>
-
-<button class="action officeout" onclick="markStatus('Office Out')">
-🚪 Office Out<br><small>End office day</small>
-</button>
-
-<button class="action home" onclick="addHomePrompt()">
-🏠 Home Work<br><small>Add work from home</small>
-</button>
-</div>
-
-
-<div class="card">
-<h2 style="margin-top:0">Add Activity</h2>
-
-<div class="tabs">
-<button class="tab active" id="voiceTab" onclick="setInput('voice')">
-🎤 Voice Input
-</button>
-
-<button class="tab" id="textTab" onclick="setInput('text')">
-⌨️ Text Input
-</button>
-</div>
-
-<div class="inputgrid">
-
-<div id="inputArea">
-<button class="mic" style="width:100%" onclick="startVoice()">
-<span class="big">🎙️</span>
-Tap to speak
-<br>
-<small id="voiceState">Voice input</small>
-</button>
-</div>
-
-<div>
-<div class="field">
-<label>Activity Date</label>
-<input id="activityDate" type="date">
-</div>
-
-<div class="field">
-<label>Activity Time</label>
-<input id="activityTime" type="time">
-</div>
-
-<button class="primary" style="width:100%" onclick="saveActivity()">
-💾 Save Activity
-</button>
-</div>
-
-</div>
-
-<p class="notice">
-Date and time default to now. You can change them before saving.
-</p>
-</div>
-
-
-<div class="card">
-<h2 style="margin-top:0">Today's Activities</h2>
-
-<div class="summary" id="summary"></div>
-
-<div class="tablewrap">
-<table class="table">
-<thead>
-<tr>
-<th>Time</th>
-<th>Activity</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="todayRows"></tbody>
-</table>
-</div>
-</div>
-
-</section>
-
-
-<!-- TODAY -->
-<section id="today" class="page hidden"></section>
-
-
-<!-- WEEKLY -->
-<section id="weekly" class="page hidden">
-<div class="card">
-
-<div class="row" style="justify-content:space-between">
-<div>
-<h2 style="margin:0">Weekly Report</h2>
-<div class="notice">Review and edit before printing</div>
-</div>
-
-<div class="report-actions">
-<button class="primary" onclick="printReport('week')">🖨️ Print</button>
-<button class="secondary" onclick="exportCsv('week')">📗 Excel/CSV</button>
-</div>
-</div>
-
-<div class="row report-controls" style="margin:15px 0">
-<input type="date" id="weekStart">
-<input type="date" id="weekEnd">
-<button class="primary" onclick="renderReport('week')">Generate</button>
-</div>
-
-<div class="tablewrap">
-<table class="table">
-<thead>
-<tr>
-<th>Date</th>
-<th>Time</th>
-<th>Activity</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="weekRows"></tbody>
-</table>
-</div>
-
-<div class="print-area" id="weekPrint"></div>
-</div>
-</section>
-
-
-<!-- MONTHLY -->
-<section id="monthly" class="page hidden">
-<div class="card">
-
-<div class="row" style="justify-content:space-between">
-<div>
-<h2 style="margin:0">Monthly Report</h2>
-<div class="notice">All saved months remain until you delete them.</div>
-</div>
-
-<div class="report-actions">
-<button class="primary" onclick="printReport('month')">🖨️ Print</button>
-<button class="secondary" onclick="exportCsv('month')">📗 Excel/CSV</button>
-</div>
-</div>
-
-<div class="row report-controls" style="margin:15px 0">
-<input type="month" id="monthPick">
-<button class="primary" onclick="renderReport('month')">Generate</button>
-</div>
-
-<div class="tablewrap">
-<table class="table">
-<thead>
-<tr>
-<th>Date</th>
-<th>Time</th>
-<th>Activity</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="monthRows"></tbody>
-</table>
-</div>
-
-<div class="print-area" id="monthPrint"></div>
-</div>
-</section>
-
-
-<!-- SETTINGS -->
-<section id="settings" class="page hidden">
-<div class="card">
-
-<h2>Settings</h2>
-
-<p><b>Automatic deletion is OFF.</b></p>
-<p class="notice">
-Your old data will not be deleted automatically.
-</p>
-
-<div class="field">
-<label>Select month to delete</label>
-<input id="deleteMonth" type="month">
-</div>
-
-<button class="danger" onclick="deleteSelectedMonth()">
-🗑️ Delete Selected Month
-</button>
-
-<hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
-
-<button class="danger" onclick="clearAll()">
-⚠️ Delete ALL My Data
-</button>
-
-</div>
-</section>
-
-</main>
-</div>
-
+<!-- MOBILE BAR -->
 
 <div class="mobilebar">
-<button data-page="dashboard">🏠<br>Home</button>
-<button onclick="focusInput()">➕<br>Add</button>
-<button data-page="weekly">📊<br>Weekly</button>
-<button data-page="monthly">📅<br>Monthly</button>
+
+  <button data-page="dashboard">
+    🏠
+    <br>
+    Home
+  </button>
+
+  <button onclick="focusInput()">
+    ➕
+    <br>
+    Add
+  </button>
+
+  <button data-page="weekly">
+    📊
+    <br>
+    Weekly
+  </button>
+
+  <button data-page="monthly">
+    📅
+    <br>
+    Monthly
+  </button>
+
+</div>
+
+
+<!-- EDIT MODAL -->
+
+<div
+  class="modal hidden"
+  id="editModal">
+
+  <div class="modalbox">
+
+    <h2>
+      Edit Activity
+    </h2>
+
+
+    <div class="field">
+
+      <label>
+        Date & Time
+      </label>
+
+      <input
+        id="editTime"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Activity
+      </label>
+
+      <textarea
+        id="editText">
+      </textarea>
+
+    </div>
+
+
+    <div
+      class="row"
+      style="justify-content:flex-end">
+
+      <button
+        class="secondary"
+        onclick="closeModal()">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        class="primary"
+        onclick="saveEdit()">
+
+        Save Changes
+
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
 
-<div class="modal hidden" id="editModal">
-<div class="modalbox">
-
-<h2>Edit Activity</h2>
-
-<div class="field">
-<label>Date & Time</label>
-<input id="editTime" type="datetime-local">
+<div
+  class="toast"
+  id="toast">
 </div>
-
-<div class="field">
-<label>Activity</label>
-<textarea id="editText"></textarea>
-</div>
-
-<div class="row" style="justify-content:flex-end">
-<button class="secondary" onclick="closeModal()">Cancel</button>
-<button class="primary" onclick="saveEdit()">Save Changes</button>
-</div>
-
-</div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 
 <script>
-/* ==============================
-   SUPABASE CONFIGURATION
-================================ */
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
-'https://pgxwcvaorzpmjtfmvtzx.supabase.co';
+  'https://pgxwcvaorzpmjtfmvtzx.supabase.co';
 
 const SUPABASE_KEY =
-'sb_publishable_vHwS8oIdElQI5vYTKCiHAA_8vMSKKKF';
+  'sb_publishable_vHwS8oIdElQI5vYTKCiHAA_8vMSKKKF';
 
-const { createClient } = window.supabase;
+const {
+  createClient
+} = window.supabase;
 
-const db = createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-/* ==============================
+/* =====================================================
    APP STATE
-================================ */
+===================================================== */
 
-let data=[];
-let editId=null;
-let currentInput='voice';
-let recognition=null;
+let data = [];
+
+let editId = null;
+
+let currentInput = 'voice';
+
+let recognition = null;
 
 
-/* ==============================
+/* =====================================================
    AUTH
-================================ */
+===================================================== */
 
 async function login(){
 
-const email=document.getElementById('loginEmail').value.trim();
-const password=document.getElementById('loginPassword').value;
+  const email =
+    document
+      .getElementById('loginEmail')
+      .value
+      .trim();
 
-if(!email||!password){
-setAuthMessage('Please enter email and password.');
-return;
-}
+  const password =
+    document
+      .getElementById('loginPassword')
+      .value;
 
-setAuthMessage('Logging in...');
 
-const {error}=await db.auth.signInWithPassword({
-email,
-password
-});
+  if(!email || !password){
 
-if(error){
-setAuthMessage(error.message);
-return;
-}
+    setAuthMessage(
+      'Please enter email and password.'
+    );
 
-await startApp();
+    return;
+  }
+
+
+  setAuthMessage(
+    'Logging in...'
+  );
+
+
+  const {
+    error
+  } =
+  await db.auth.signInWithPassword({
+
+    email,
+    password
+
+  });
+
+
+  if(error){
+
+    setAuthMessage(
+      error.message
+    );
+
+    return;
+  }
+
+
+  await startApp();
 }
 
 
 async function signup(){
 
-const email=document.getElementById('loginEmail').value.trim();
-const password=document.getElementById('loginPassword').value;
+  const email =
+    document
+      .getElementById('loginEmail')
+      .value
+      .trim();
 
-if(!email||!password){
-setAuthMessage('Please enter email and password.');
-return;
-}
+  const password =
+    document
+      .getElementById('loginPassword')
+      .value;
 
-if(password.length<6){
-setAuthMessage('Password must be at least 6 characters.');
-return;
-}
 
-setAuthMessage('Creating account...');
+  if(!email || !password){
 
-const {data:result,error}=await db.auth.signUp({
-email,
-password
-});
+    setAuthMessage(
+      'Please enter email and password.'
+    );
 
-if(error){
-setAuthMessage(error.message);
-return;
-}
+    return;
+  }
 
-if(result.session){
-setAuthMessage('Account created.');
-await startApp();
-}else{
-setAuthMessage('Account created. Please check your email and verify your account, then login.');
-}
+
+  if(password.length < 6){
+
+    setAuthMessage(
+      'Password must be at least 6 characters.'
+    );
+
+    return;
+  }
+
+
+  setAuthMessage(
+    'Creating account...'
+  );
+
+
+  const {
+    data:result,
+    error
+  } =
+  await db.auth.signUp({
+
+    email,
+    password
+
+  });
+
+
+  if(error){
+
+    setAuthMessage(
+      error.message
+    );
+
+    return;
+  }
+
+
+  if(result.session){
+
+    setAuthMessage(
+      'Account created.'
+    );
+
+    await startApp();
+
+  }else{
+
+    setAuthMessage(
+      'Account created. Please check your email and verify your account, then login.'
+    );
+
+  }
+
 }
 
 
 async function logout(){
 
-await db.auth.signOut();
+  await db.auth.signOut();
 
-data=[];
+  data = [];
 
-document.getElementById('app').classList.add('hidden');
-document.getElementById('loginScreen').classList.remove('hidden');
+  document
+    .getElementById('app')
+    .classList
+    .add('hidden');
 
-setAuthMessage('Logged out.');
+  document
+    .getElementById('loginScreen')
+    .classList
+    .remove('hidden');
+
 }
 
 
 function setAuthMessage(text){
-document.getElementById('authMessage').textContent=text;
+
+  document
+    .getElementById('authMessage')
+    .textContent = text;
+
 }
 
 
-/* ==============================
+/* =====================================================
    START APP
-================================ */
+===================================================== */
 
 async function startApp(){
 
-document.getElementById('loginScreen').classList.add('hidden');
-document.getElementById('app').classList.remove('hidden');
+  document
+    .getElementById('loginScreen')
+    .classList
+    .add('hidden');
 
-await loadData();
+  document
+    .getElementById('app')
+    .classList
+    .remove('hidden');
 
-renderToday();
-updateClock();
-setDefaultActivityDateTime();
 
-toast('Cloud sync connected');
+  await loadData();
+
+  renderToday();
+
+  renderTodayPage();
+
+  updateClock();
+
+  setDefaultActivityDateTime();
+
+  toast(
+    'Cloud sync connected'
+  );
+
 }
 
 
-/* ==============================
-   DATABASE
-================================ */
+/* =====================================================
+   DATABASE LOAD
+===================================================== */
 
 async function loadData(){
 
-const {data:rows,error}=await db
-.from('work_reports')
-.select('*')
-.order('report_date',{ascending:true})
-.order('report_time',{ascending:true});
-
-if(error){
-toast('Could not load data: '+error.message);
-console.error(error);
-return;
-}
-
-data=(rows||[]).map(row=>({
-id:row.id,
-ts:combineDateTime(row.report_date,row.report_time),
-text:row.work_details,
-inputType:row.input_type||'text'
-}));
-}
+  const {
+    data:rows,
+    error
+  } =
+  await db
+    .from('work_reports')
+    .select('*')
+    .order(
+      'report_date',
+      {ascending:true}
+    )
+    .order(
+      'report_time',
+      {ascending:true}
+    );
 
 
-function combineDateTime(date,time){
+  if(error){
 
-return new Date(
-date+'T'+String(time).slice(0,8)
-).toISOString();
-}
+    toast(
+      'Could not load data: ' +
+      error.message
+    );
+
+    console.error(error);
+
+    return;
+  }
 
 
-async function add(text,customTs=null,inputType='text'){
+  data =
+    (rows || []).map(row => ({
 
-text=cleanActivity(text);
+      id:row.id,
 
-if(!text)return;
+      ts:
+        combineDateTime(
+          row.report_date,
+          row.report_time
+        ),
 
-const ts=customTs||new Date().toISOString();
-const d=new Date(ts);
+      text:
+        row.work_details || '',
 
-const row={
-report_date:localDateString(d),
-report_time:localTimeString(d),
-work_details:text,
-input_type:inputType
-};
+      inputType:
+        row.input_type || 'text'
 
-const {data:inserted,error}=await db
-.from('work_reports')
-.insert(row)
-.select()
-.single();
+    }));
 
-if(error){
-toast('Save failed: '+error.message);
-console.error(error);
-return;
-}
-
-data.push({
-id:inserted.id,
-ts:combineDateTime(inserted.report_date,inserted.report_time),
-text:inserted.work_details,
-inputType:inserted.input_type
-});
-
-renderToday();
-toast('Activity saved to cloud');
 }
 
 
-async function updateActivity(id,text,ts){
-
-const d=new Date(ts);
-
-const {error}=await db
-.from('work_reports')
-.update({
-report_date:localDateString(d),
-report_time:localTimeString(d),
-work_details:cleanActivity(text)
-})
-.eq('id',id);
-
-if(error){
-toast('Update failed: '+error.message);
-return false;
-}
-
-return true;
-}
-
-
-async function deleteActivity(id){
-
-const {error}=await db
-.from('work_reports')
-.delete()
-.eq('id',id);
-
-if(error){
-toast('Delete failed: '+error.message);
-return false;
-}
-
-return true;
-}
-
-
-/* ==============================
-   HELPERS
-================================ */
+/* =====================================================
+   DATE / TIME
+===================================================== */
 
 function pad(n){
-return String(n).padStart(2,'0');
+
+  return String(n)
+    .padStart(2,'0');
+
 }
+
 
 function localDateString(d){
 
-return d.getFullYear()+'-'+
-pad(d.getMonth()+1)+'-'+
-pad(d.getDate());
+  return (
+    d.getFullYear() +
+    '-' +
+    pad(d.getMonth()+1) +
+    '-' +
+    pad(d.getDate())
+  );
+
 }
+
 
 function localTimeString(d){
 
-return pad(d.getHours())+':'+
-pad(d.getMinutes())+':00';
+  return (
+    pad(d.getHours()) +
+    ':' +
+    pad(d.getMinutes()) +
+    ':00'
+  );
+
 }
 
-function localISO(d=new Date()){
 
-return localDateString(d)+'T'+
-pad(d.getHours())+':'+
-pad(d.getMinutes());
+function combineDateTime(
+  date,
+  time
+){
+
+  return new Date(
+    date +
+    'T' +
+    String(time).slice(0,8)
+  ).toISOString();
+
 }
+
+
+function localISO(
+  d = new Date()
+){
+
+  return (
+    localDateString(d) +
+    'T' +
+    pad(d.getHours()) +
+    ':' +
+    pad(d.getMinutes())
+  );
+
+}
+
 
 function fmtTime(s){
 
-return new Date(s).toLocaleTimeString([],{
-hour:'2-digit',
-minute:'2-digit',
-hour12:true
-});
+  return new Date(s)
+    .toLocaleTimeString(
+      [],
+      {
+        hour:'2-digit',
+        minute:'2-digit',
+        hour12:true
+      }
+    );
+
 }
+
 
 function fmtDate(s){
 
-return new Date(s).toLocaleDateString([],{
-day:'2-digit',
-month:'short',
-year:'numeric'
-});
+  return new Date(s)
+    .toLocaleDateString(
+      [],
+      {
+        day:'2-digit',
+        month:'short',
+        year:'numeric'
+      }
+    );
+
 }
 
-function dateInputToLocalStart(v){
 
-if(!v)return null;
+/* =====================================================
+   ADD ACTIVITY
+===================================================== */
 
-const [y,m,d]=v.split('-').map(Number);
+async function add(
+  text,
+  customTs = null,
+  inputType = 'text'
+){
 
-return new Date(y,m-1,d,0,0,0,0);
+  text =
+    cleanActivity(text);
+
+
+  if(!text){
+
+    toast(
+      'Activity cannot be empty'
+    );
+
+    return false;
+  }
+
+
+  const ts =
+    customTs ||
+    new Date().toISOString();
+
+
+  const d =
+    new Date(ts);
+
+
+  const row = {
+
+    report_date:
+      localDateString(d),
+
+    report_time:
+      localTimeString(d),
+
+    work_details:
+      text,
+
+    input_type:
+      inputType
+
+  };
+
+
+  const {
+    data:inserted,
+    error
+  } =
+  await db
+    .from('work_reports')
+    .insert(row)
+    .select()
+    .single();
+
+
+  if(error){
+
+    toast(
+      'Save failed: ' +
+      error.message
+    );
+
+    console.error(error);
+
+    return false;
+  }
+
+
+  data.push({
+
+    id:inserted.id,
+
+    ts:
+      combineDateTime(
+        inserted.report_date,
+        inserted.report_time
+      ),
+
+    text:
+      inserted.work_details,
+
+    inputType:
+      inserted.input_type
+
+  });
+
+
+  return true;
 }
 
-function dateInputToLocalEnd(v){
 
-if(!v)return null;
+/* =====================================================
+   UPDATE ACTIVITY
+===================================================== */
 
-const [y,m,d]=v.split('-').map(Number);
+async function updateActivity(
+  id,
+  text,
+  ts
+){
 
-return new Date(y,m-1,d,23,59,59,999);
+  const d =
+    new Date(ts);
+
+
+  const {
+    error
+  } =
+  await db
+    .from('work_reports')
+    .update({
+
+      report_date:
+        localDateString(d),
+
+      report_time:
+        localTimeString(d),
+
+      work_details:
+        cleanActivity(text)
+
+    })
+    .eq(
+      'id',
+      id
+    );
+
+
+  if(error){
+
+    toast(
+      'Update failed: ' +
+      error.message
+    );
+
+    return false;
+  }
+
+
+  return true;
 }
+
+
+/* =====================================================
+   DELETE ACTIVITY
+===================================================== */
+
+async function deleteActivity(id){
+
+  const {
+    error
+  } =
+  await db
+    .from('work_reports')
+    .delete()
+    .eq(
+      'id',
+      id
+    );
+
+
+  if(error){
+
+    toast(
+      'Delete failed: ' +
+      error.message
+    );
+
+    return false;
+  }
+
+
+  return true;
+}
+
+
+/* =====================================================
+   CLEAN TEXT
+===================================================== */
 
 function cleanActivity(text){
 
-return text.trim()
-.replace(/\s+/g,' ')
-.replace(/\s+([,.!?])/g,'$1');
+  return String(text)
+    .trim()
+    .replace(/\s+/g,' ')
+    .replace(
+      /\s+([,.!?])/g,
+      '$1'
+    );
+
 }
+
+
+/* =====================================================
+   TOAST
+===================================================== */
 
 function toast(t){
 
-const e=document.getElementById('toast');
+  const e =
+    document.getElementById(
+      'toast'
+    );
 
-e.textContent=t;
-e.style.display='block';
 
-setTimeout(()=>{
-e.style.display='none';
-},2500);
+  e.textContent = t;
+
+  e.style.display =
+    'block';
+
+
+  setTimeout(
+    () => {
+      e.style.display =
+        'none';
+    },
+    2500
+  );
+
 }
 
 
-/* ==============================
+/* =====================================================
    NAVIGATION
-================================ */
+===================================================== */
 
 function showPage(p){
 
-document.querySelectorAll('.page')
-.forEach(x=>x.classList.add('hidden'));
+  document
+    .querySelectorAll('.page')
+    .forEach(x => {
 
-document.getElementById(p)
-.classList.remove('hidden');
+      x.classList
+        .add('hidden');
 
-document.querySelectorAll('[data-page]')
-.forEach(b=>{
-b.classList.toggle(
-'active',
-b.dataset.page===p
-);
-});
+    });
 
-if(p==='weekly')renderReport('week');
-if(p==='monthly')renderReport('month');
-if(p==='dashboard')renderToday();
+
+  const target =
+    document.getElementById(p);
+
+
+  if(target){
+
+    target.classList
+      .remove('hidden');
+
+  }
+
+
+  document
+    .querySelectorAll(
+      '[data-page]'
+    )
+    .forEach(b => {
+
+      b.classList.toggle(
+        'active',
+        b.dataset.page === p
+      );
+
+    });
+
+
+  if(p === 'dashboard'){
+
+    renderToday();
+
+  }
+
+
+  if(p === 'today'){
+
+    renderTodayPage();
+
+  }
+
+
+  if(p === 'weekly'){
+
+    renderReport('week');
+
+  }
+
+
+  if(p === 'monthly'){
+
+    renderReport('month');
+
+  }
+
 }
 
-document.querySelectorAll('[data-page]')
-.forEach(b=>{
-b.addEventListener('click',()=>{
-showPage(b.dataset.page);
-});
-});
+
+document
+  .querySelectorAll(
+    '[data-page]'
+  )
+  .forEach(b => {
+
+    b.addEventListener(
+      'click',
+      () => {
+
+        showPage(
+          b.dataset.page
+        );
+
+      }
+    );
+
+  });
 
 
-/* ==============================
-   INPUT
-================================ */
+/* =====================================================
+   INPUT MODE
+===================================================== */
 
 function setInput(mode){
 
-currentInput=mode;
+  currentInput = mode;
 
-document.getElementById('voiceTab')
-.classList.toggle('active',mode==='voice');
 
-document.getElementById('textTab')
-.classList.toggle('active',mode==='text');
+  document
+    .getElementById('voiceTab')
+    .classList
+    .toggle(
+      'active',
+      mode === 'voice'
+    );
 
-document.getElementById('inputArea').innerHTML=
 
-mode==='voice'
+  document
+    .getElementById('textTab')
+    .classList
+    .toggle(
+      'active',
+      mode === 'text'
+    );
 
-?
 
-`<button class="mic" style="width:100%" onclick="startVoice()">
-<span class="big">🎙️</span>
-Tap to speak<br>
-<small id="voiceState">Voice input</small>
-</button>`
+  document
+    .getElementById('inputArea')
+    .innerHTML =
 
-:
+    mode === 'voice'
 
-`<textarea id="activityText"
-class="textarea"
-placeholder="Write naturally: Jamuna LC follow-up, completed 3 projects, sent offer..."></textarea>`;
+    ?
 
-setDefaultActivityDateTime();
+    `
+    <button
+      class="mic"
+      style="width:100%"
+      onclick="startVoice()">
+
+      <span class="big">
+        🎙️
+      </span>
+
+      Tap to speak
+
+      <br>
+
+      <small id="voiceState">
+        Voice input
+      </small>
+
+    </button>
+    `
+
+    :
+
+    `
+    <textarea
+      id="activityText"
+      class="textarea"
+      placeholder="Write your work activity...">
+    </textarea>
+    `;
+
+
+  setDefaultActivityDateTime();
+
 }
 
 
 function focusInput(){
 
-showPage('dashboard');
+  showPage('dashboard');
 
-setInput('text');
+  setInput('text');
 
-setTimeout(()=>{
-document.getElementById('activityText')?.focus();
-},50);
+
+  setTimeout(
+    () => {
+
+      document
+        .getElementById(
+          'activityText'
+        )
+        ?.focus();
+
+    },
+    50
+  );
+
 }
 
 
 function addHomePrompt(){
 
-showPage('dashboard');
+  showPage('dashboard');
 
-setInput('text');
+  setInput('text');
 
-setTimeout(()=>{
-document.getElementById('activityText')?.focus();
-},50);
 
-toast('Write your Home Work activity');
+  setTimeout(
+    () => {
+
+      document
+        .getElementById(
+          'activityText'
+        )
+        ?.focus();
+
+    },
+    50
+  );
+
+
+  toast(
+    'Write your Home Work activity'
+  );
+
 }
 
 
-/* ==============================
+/* =====================================================
    VOICE
-================================ */
+===================================================== */
 
 function startVoice(){
 
-const R=
-window.SpeechRecognition||
-window.webkitSpeechRecognition;
+  const R =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
-if(!R){
-toast('Voice recognition is not available. Use Chrome or Edge.');
-return;
+
+  if(!R){
+
+    toast(
+      'Voice recognition is not available. Use Chrome or Edge.'
+    );
+
+    return;
+  }
+
+
+  recognition =
+    new R();
+
+
+  recognition.lang =
+    'bn-BD';
+
+  recognition.interimResults =
+    false;
+
+  recognition.continuous =
+    false;
+
+  recognition.maxAlternatives =
+    1;
+
+
+  const state =
+    document.getElementById(
+      'voiceState'
+    );
+
+
+  if(state){
+
+    state.textContent =
+      'Listening...';
+
+  }
+
+
+  recognition.onstart =
+    () => {
+
+      if(state){
+
+        state.textContent =
+          '🔴 Listening...';
+
+      }
+
+    };
+
+
+  recognition.onresult =
+    e => {
+
+      let text = '';
+
+
+      for(
+        let i = e.resultIndex;
+        i < e.results.length;
+        i++
+      ){
+
+        text +=
+          e.results[i][0]
+            .transcript;
+
+      }
+
+
+      document
+        .getElementById(
+          'inputArea'
+        )
+        .innerHTML =
+
+        `
+        <textarea
+          id="activityText"
+          class="textarea"
+          placeholder="Voice result">
+        </textarea>
+        `;
+
+
+      document
+        .getElementById(
+          'activityText'
+        )
+        .value =
+        text.trim();
+
+
+      currentInput =
+        'voice';
+
+
+      document
+        .getElementById(
+          'voiceTab'
+        )
+        .classList
+        .add('active');
+
+
+      document
+        .getElementById(
+          'textTab'
+        )
+        .classList
+        .remove('active');
+
+
+      toast(
+        'Voice converted to text. Check it, then save.'
+      );
+
+    };
+
+
+  recognition.onerror =
+    e => {
+
+      toast(
+        e.error === 'not-allowed'
+        ?
+        'Microphone permission was blocked.'
+        :
+        'Voice error: ' +
+        e.error
+      );
+
+    };
+
+
+  recognition.onend =
+    () => {
+
+      recognition = null;
+
+    };
+
+
+  try{
+
+    recognition.start();
+
+  }catch(e){
+
+    toast(
+      'Voice is already starting. Please wait.'
+    );
+
+  }
+
 }
 
-recognition=new R();
 
-recognition.lang='bn-BD';
-recognition.interimResults=false;
-recognition.continuous=false;
-recognition.maxAlternatives=1;
-
-const state=document.getElementById('voiceState');
-
-if(state)state.textContent='Listening...';
-
-recognition.onstart=()=>{
-
-if(state)state.textContent='🔴 Listening...';
-
-};
-
-recognition.onresult=e=>{
-
-let text='';
-
-for(
-let i=e.resultIndex;
-i<e.results.length;
-i++
-){
-text+=e.results[i][0].transcript;
-}
-
-document.getElementById('inputArea').innerHTML=
-'<textarea id="activityText" class="textarea" placeholder="Voice result"></textarea>';
-
-document.getElementById('activityText').value=text.trim();
-
-currentInput='text';
-
-document.getElementById('voiceTab')
-.classList.remove('active');
-
-document.getElementById('textTab')
-.classList.add('active');
-
-toast('Voice converted to text. Check it, then save.');
-};
-
-recognition.onerror=e=>{
-
-toast(
-e.error==='not-allowed'
-?'Microphone permission was blocked.'
-:'Voice error: '+e.error
-);
-
-};
-
-recognition.onend=()=>{
-recognition=null;
-};
-
-try{
-recognition.start();
-}
-catch(e){
-toast('Voice is already starting. Please wait.');
-}
-}
-
-
-/* ==============================
+/* =====================================================
    ACTIVITY DATE/TIME
-================================ */
+===================================================== */
 
 function setDefaultActivityDateTime(){
 
-const d=document.getElementById('activityDate');
-const t=document.getElementById('activityTime');
+  const d =
+    document.getElementById(
+      'activityDate'
+    );
 
-if(!d||!t)return;
+  const t =
+    document.getElementById(
+      'activityTime'
+    );
 
-const now=new Date();
 
-if(!d.value)
-d.value=localISO(now).slice(0,10);
+  if(!d || !t){
 
-if(!t.value)
-t.value=
-pad(now.getHours())+':'+
-pad(now.getMinutes());
+    return;
+  }
+
+
+  const now =
+    new Date();
+
+
+  if(!d.value){
+
+    d.value =
+      localDateString(now);
+
+  }
+
+
+  if(!t.value){
+
+    t.value =
+      pad(now.getHours()) +
+      ':' +
+      pad(now.getMinutes());
+
+  }
+
 }
 
 
 function selectedActivityTimestamp(){
 
-const d=document.getElementById('activityDate')?.value;
-const t=document.getElementById('activityTime')?.value;
+  const d =
+    document.getElementById(
+      'activityDate'
+    )?.value;
 
-if(!d||!t)return null;
 
-const dt=new Date(d+'T'+t);
+  const t =
+    document.getElementById(
+      'activityTime'
+    )?.value;
 
-return isNaN(dt.getTime())
-?null
-:dt.toISOString();
+
+  if(!d || !t){
+
+    return null;
+
+  }
+
+
+  const dt =
+    new Date(
+      d + 'T' + t
+    );
+
+
+  return isNaN(
+    dt.getTime()
+  )
+  ?
+  null
+  :
+  dt.toISOString();
+
 }
 
+
+/* =====================================================
+   SAVE ACTIVITY
+===================================================== */
 
 async function saveActivity(){
 
-let text=
-document.getElementById('activityText')?.value||'';
+  const text =
+    document
+      .getElementById(
+        'activityText'
+      )
+      ?.value || '';
 
-if(!text.trim()){
-toast('Please enter or speak an activity');
-return;
+
+  if(!text.trim()){
+
+    toast(
+      'Please enter or speak an activity'
+    );
+
+    return;
+  }
+
+
+  const ts =
+    selectedActivityTimestamp();
+
+
+  if(!ts){
+
+    toast(
+      'Please select a valid date and time'
+    );
+
+    return;
+  }
+
+
+  const ok =
+    await add(
+      text,
+      ts,
+      currentInput
+    );
+
+
+  if(!ok){
+
+    return;
+  }
+
+
+  const input =
+    document.getElementById(
+      'activityText'
+    );
+
+
+  if(input){
+
+    input.value = '';
+
+  }
+
+
+  await loadData();
+
+
+  renderToday();
+
+  renderTodayPage();
+
+
+  toast(
+    'Activity saved to cloud'
+  );
+
 }
 
-const ts=selectedActivityTimestamp();
 
-if(!ts){
-toast('Please select a valid date and time');
-return;
-}
-
-await add(
-text,
-ts,
-currentInput==='voice'?'voice':'text'
-);
-
-const input=document.getElementById('activityText');
-
-if(input)input.value='';
-
-setInput('voice');
-
-await loadData();
-
-renderToday();
-}
-
-
-/* ==============================
+/* =====================================================
    OFFICE STATUS
-================================ */
+===================================================== */
 
 async function markStatus(kind){
 
-await add(
-kind,
-new Date().toISOString(),
-'text'
-);
+  const ok =
+    await add(
+      kind,
+      new Date().toISOString(),
+      'text'
+    );
 
-document.getElementById('status').textContent=
-kind==='Office In'
-?'● In Office'
-:'● Office Out';
+
+  if(!ok){
+
+    return;
+  }
+
+
+  document
+    .getElementById(
+      'status'
+    )
+    .textContent =
+      kind === 'Office In'
+      ?
+      '● In Office'
+      :
+      '● Office Out';
+
+
+  await loadData();
+
+  renderToday();
+
+  renderTodayPage();
+
+
+  toast(
+    kind + ' saved'
+  );
+
 }
 
 
-/* ==============================
+/* =====================================================
    TODAY
-================================ */
+===================================================== */
+
+function getTodayRows(){
+
+  const today =
+    new Date()
+      .toDateString();
+
+
+  return data
+    .filter(
+      x =>
+        new Date(x.ts)
+          .toDateString()
+        === today
+    )
+    .sort(
+      (a,b) =>
+        new Date(a.ts) -
+        new Date(b.ts)
+    );
+
+}
+
 
 function renderToday(){
 
-const today=new Date().toDateString();
+  const rows =
+    getTodayRows();
 
-const rows=data
-.filter(x=>new Date(x.ts).toDateString()===today)
-.sort((a,b)=>new Date(a.ts)-new Date(b.ts));
 
-document.getElementById('todayRows').innerHTML=
-rows.map(rowHtml).join('')||
-'<tr><td colspan="3" class="notice">No activities yet.</td></tr>';
+  document
+    .getElementById(
+      'todayRows'
+    )
+    .innerHTML =
 
-document.getElementById('summary').innerHTML=`
+    rows
+      .map(rowHtml)
+      .join('')
 
-<div class="stat">
-Total Activities
-<b>${rows.length}</b>
-</div>
+    ||
 
-<div class="stat">
-First Activity
-<b>${rows.length?fmtTime(rows[0].ts):'—'}</b>
-</div>
+    `
+    <tr>
+      <td colspan="3"
+          class="notice">
+        No activities yet.
+      </td>
+    </tr>
+    `;
 
-<div class="stat">
-Last Activity
-<b>${rows.length?fmtTime(rows[rows.length-1].ts):'—'}</b>
-</div>
 
-<div class="stat">
-Days Logged
-<b>${new Set(
-rows.map(x=>new Date(x.ts).toDateString())
-).size}</b>
-</div>
-`;
+  document
+    .getElementById(
+      'summary'
+    )
+    .innerHTML =
+
+    `
+
+    <div class="stat">
+      Total Activities
+      <b>${rows.length}</b>
+    </div>
+
+    <div class="stat">
+      First Activity
+      <b>
+        ${
+          rows.length
+          ?
+          fmtTime(rows[0].ts)
+          :
+          '—'
+        }
+      </b>
+    </div>
+
+    <div class="stat">
+      Last Activity
+      <b>
+        ${
+          rows.length
+          ?
+          fmtTime(
+            rows[rows.length-1].ts
+          )
+          :
+          '—'
+        }
+      </b>
+    </div>
+
+    <div class="stat">
+      Days Logged
+      <b>
+        ${
+          rows.length
+          ?
+          new Set(
+            rows.map(
+              x =>
+                new Date(
+                  x.ts
+                ).toDateString()
+            )
+          ).size
+          :
+          0
+        }
+      </b>
+    </div>
+
+    `;
+
+}
+
+
+function renderTodayPage(){
+
+  const rows =
+    getTodayRows();
+
+
+  const target =
+    document.getElementById(
+      'todayRows2'
+    );
+
+
+  if(!target){
+
+    return;
+  }
+
+
+  target.innerHTML =
+
+    rows
+      .map(rowHtml)
+      .join('')
+
+    ||
+
+    `
+    <tr>
+      <td colspan="3"
+          class="notice">
+        No activities today.
+      </td>
+    </tr>
+    `;
+
 }
 
 
 function rowHtml(x){
 
-return `
-<tr>
-<td>${fmtTime(x.ts)}</td>
-<td>${esc(x.text)}</td>
-<td>
-<button class="small" onclick="edit('${x.id}')">✏️</button>
-<button class="danger" onclick="del('${x.id}')">🗑️</button>
-</td>
-</tr>
-`;
+  return `
+
+  <tr>
+
+    <td>
+      ${fmtTime(x.ts)}
+    </td>
+
+    <td>
+      ${esc(x.text)}
+    </td>
+
+    <td>
+
+      <button
+        class="small"
+        onclick="edit('${x.id}')">
+        ✏️
+      </button>
+
+      <button
+        class="danger"
+        onclick="del('${x.id}')">
+        🗑️
+      </button>
+
+    </td>
+
+  </tr>
+
+  `;
+
 }
 
 
 function esc(s){
 
-return String(s).replace(
-/[&<>"']/g,
-c=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
-}[c])
-);
+  return String(s)
+    .replace(
+      /[&<>"']/g,
+      c =>
+        ({
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#39;'
+        }[c])
+    );
+
 }
 
 
-/* ==============================
+/* =====================================================
    EDIT
-================================ */
+===================================================== */
 
 function edit(id){
 
-const x=data.find(a=>a.id===id);
+  const x =
+    data.find(
+      a => a.id === id
+    );
 
-if(!x)return;
 
-editId=id;
+  if(!x){
 
-document.getElementById('editTime').value=
-x.ts.slice(0,16);
+    return;
+  }
 
-document.getElementById('editText').value=
-x.text;
 
-document.getElementById('editModal')
-.classList.remove('hidden');
+  editId = id;
+
+
+  document
+    .getElementById(
+      'editTime'
+    )
+    .value =
+      x.ts.slice(0,16);
+
+
+  document
+    .getElementById(
+      'editText'
+    )
+    .value =
+      x.text;
+
+
+  document
+    .getElementById(
+      'editModal'
+    )
+    .classList
+    .remove('hidden');
+
 }
 
 
 function closeModal(){
 
-document.getElementById('editModal')
-.classList.add('hidden');
+  document
+    .getElementById(
+      'editModal'
+    )
+    .classList
+    .add('hidden');
 
-editId=null;
+
+  editId = null;
+
 }
 
 
 async function saveEdit(){
 
-const x=data.find(a=>a.id===editId);
+  const x =
+    data.find(
+      a => a.id === editId
+    );
 
-if(!x)return;
 
-const text=cleanActivity(
-document.getElementById('editText').value
-);
+  if(!x){
 
-if(!text){
-toast('Activity cannot be empty');
-return;
-}
+    return;
+  }
 
-const ts=new Date(
-document.getElementById('editTime').value
-).toISOString();
 
-const ok=await updateActivity(
-editId,
-text,
-ts
-);
+  const text =
+    cleanActivity(
+      document
+        .getElementById(
+          'editText'
+        )
+        .value
+    );
 
-if(!ok)return;
 
-closeModal();
+  if(!text){
 
-await loadData();
+    toast(
+      'Activity cannot be empty'
+    );
 
-renderToday();
-renderReport('week');
-renderReport('month');
+    return;
+  }
 
-toast('Activity updated');
+
+  const ts =
+    new Date(
+      document
+        .getElementById(
+          'editTime'
+        )
+        .value
+    ).toISOString();
+
+
+  const ok =
+    await updateActivity(
+      editId,
+      text,
+      ts
+    );
+
+
+  if(!ok){
+
+    return;
+  }
+
+
+  closeModal();
+
+
+  await loadData();
+
+
+  renderToday();
+
+  renderTodayPage();
+
+  renderReport('week');
+
+  renderReport('month');
+
+
+  toast(
+    'Activity updated'
+  );
+
 }
 
 
 async function del(id){
 
-if(!confirm('Delete this activity?'))
-return;
+  if(
+    !confirm(
+      'Delete this activity?'
+    )
+  ){
 
-const ok=await deleteActivity(id);
+    return;
+  }
 
-if(!ok)return;
 
-await loadData();
+  const ok =
+    await deleteActivity(id);
 
-renderToday();
-renderReport('week');
-renderReport('month');
 
-toast('Activity deleted');
+  if(!ok){
+
+    return;
+  }
+
+
+  await loadData();
+
+
+  renderToday();
+
+  renderTodayPage();
+
+  renderReport('week');
+
+  renderReport('month');
+
+
+  toast(
+    'Activity deleted'
+  );
+
 }
 
 
-/* ==============================
-   REPORTS
-================================ */
+/* =====================================================
+   REPORT DATE RANGE
+===================================================== */
 
 function datesFor(type){
 
-let now=new Date();
+  const now =
+    new Date();
 
-if(type==='week'){
 
-let day=now.getDay();
+  if(type === 'week'){
 
-let start=new Date(now);
+    const day =
+      now.getDay();
 
-start.setDate(
-now.getDate()-(day||7)+1
-);
 
-let end=new Date(start);
+    const start =
+      new Date(now);
 
-end.setDate(start.getDate()+6);
 
-return [start,end];
+    start.setDate(
+      now.getDate() -
+      (day || 7) +
+      1
+    );
+
+
+    start.setHours(
+      0,0,0,0
+    );
+
+
+    const end =
+      new Date(start);
+
+
+    end.setDate(
+      start.getDate()+6
+    );
+
+
+    end.setHours(
+      23,59,59,999
+    );
+
+
+    return [
+      start,
+      end
+    ];
+
+  }
+
+
+  const start =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1,
+      0,0,0,0
+    );
+
+
+  const end =
+    new Date(
+      now.getFullYear(),
+      now.getMonth()+1,
+      0,
+      23,59,59,999
+    );
+
+
+  return [
+    start,
+    end
+  ];
+
 }
 
-let start=new Date(
-now.getFullYear(),
-now.getMonth(),
-1
-);
 
-let end=new Date(
-now.getFullYear(),
-now.getMonth()+1,
-0
-);
-
-return [start,end];
-}
-
+/* =====================================================
+   REPORT
+===================================================== */
 
 function renderReport(type){
 
-let [start,end]=datesFor(type);
+  let [
+    start,
+    end
+  ] =
+  datesFor(type);
 
-if(type==='week'){
 
-let s=document.getElementById('weekStart');
-let e=document.getElementById('weekEnd');
+  if(type === 'week'){
 
-if(s&&e){
+    const s =
+      document.getElementById(
+        'weekStart'
+      );
 
-if(!s.value)
-s.value=localISO(start).slice(0,10);
+    const e =
+      document.getElementById(
+        'weekEnd'
+      );
 
-if(!e.value)
-e.value=localISO(end).slice(0,10);
 
-start=dateInputToLocalStart(s.value)||start;
-end=dateInputToLocalEnd(e.value)||end;
+    if(s && e){
+
+      if(!s.value){
+
+        s.value =
+          localDateString(start);
+
+      }
+
+
+      if(!e.value){
+
+        e.value =
+          localDateString(end);
+
+      }
+
+
+      start =
+        dateInputToLocalStart(
+          s.value
+        )
+        || start;
+
+
+      end =
+        dateInputToLocalEnd(
+          e.value
+        )
+        || end;
+
+    }
+
+  }else{
+
+    const m =
+      document.getElementById(
+        'monthPick'
+      );
+
+
+    if(
+      m &&
+      !m.value
+    ){
+
+      const now =
+        new Date();
+
+
+      m.value =
+        now.getFullYear() +
+        '-' +
+        pad(
+          now.getMonth()+1
+        );
+
+    }
+
+
+    if(m && m.value){
+
+      const [
+        y,
+        mo
+      ] =
+      m.value
+        .split('-')
+        .map(Number);
+
+
+      start =
+        new Date(
+          y,
+          mo-1,
+          1,
+          0,0,0,0
+        );
+
+
+      end =
+        new Date(
+          y,
+          mo,
+          0,
+          23,59,59,999
+        );
+
+    }
+
+  }
+
+
+  const rows =
+    data
+      .filter(
+        x => {
+
+          const d =
+            new Date(x.ts);
+
+          return (
+            d >= start &&
+            d <= end
+          );
+
+        }
+      )
+      .sort(
+        (a,b) =>
+          new Date(a.ts) -
+          new Date(b.ts)
+      );
+
+
+  const target =
+    document.getElementById(
+      type === 'week'
+      ?
+      'weekRows'
+      :
+      'monthRows'
+    );
+
+
+  if(target){
+
+    target.innerHTML =
+
+      rows
+        .map(
+          x => `
+
+          <tr>
+
+            <td>
+              ${fmtDate(x.ts)}
+            </td>
+
+            <td>
+              ${fmtTime(x.ts)}
+            </td>
+
+            <td>
+              ${esc(x.text)}
+            </td>
+
+            <td>
+
+              <button
+                class="small"
+                onclick="edit('${x.id}')">
+                ✏️
+              </button>
+
+              <button
+                class="danger"
+                onclick="del('${x.id}')">
+                🗑️
+              </button>
+
+            </td>
+
+          </tr>
+
+          `
+        )
+        .join('')
+
+      ||
+
+      `
+      <tr>
+        <td
+          colspan="4"
+          class="notice">
+          No data in this period.
+        </td>
+      </tr>
+      `;
+
+  }
+
+
+  const printTarget =
+    document.getElementById(
+      type === 'week'
+      ?
+      'weekPrint'
+      :
+      'monthPrint'
+    );
+
+
+  if(printTarget){
+
+    printTarget.innerHTML =
+      buildPrintReport(
+        type,
+        rows
+      );
+
+  }
+
+
+  window.currentReport = {
+
+    type,
+    rows
+
+  };
+
 }
 
-}else{
 
-let m=document.getElementById('monthPick');
+/* =====================================================
+   DATE INPUT HELPERS
+===================================================== */
 
-if(m&&!m.value)
-m.value=
-new Date().getFullYear()+
-'-'+
-pad(new Date().getMonth()+1);
+function dateInputToLocalStart(v){
 
-let [y,mo]=m.value.split('-').map(Number);
+  if(!v){
 
-start=new Date(y,mo-1,1,0,0,0,0);
-end=new Date(y,mo,0,23,59,59,999);
-}
+    return null;
+  }
 
-const rows=data
-.filter(x=>{
-const d=new Date(x.ts);
-return d>=start&&d<=end;
-})
-.sort((a,b)=>new Date(a.ts)-new Date(b.ts));
 
-const target=document.getElementById(
-type==='week'?'weekRows':'monthRows'
-);
+  const [
+    y,
+    m,
+    d
+  ] =
+  v.split('-')
+   .map(Number);
 
-target.innerHTML=
-rows.map(rowHtml).join('')||
-'<tr><td colspan="4" class="notice">No data in this period.</td></tr>';
 
-document.getElementById(
-type==='week'?'weekPrint':'monthPrint'
-).innerHTML=
-buildPrintReport(type,rows);
+  return new Date(
+    y,
+    m-1,
+    d,
+    0,0,0,0
+  );
 
-window.currentReport={
-type,
-rows
-};
 }
 
 
-function buildPrintReport(type,rows){
+function dateInputToLocalEnd(v){
 
-const title=
-type==='week'
-?'Weekly Work Report'
-:'Monthly Work Report';
+  if(!v){
 
-const sorted=[...rows]
-.sort((a,b)=>new Date(a.ts)-new Date(b.ts));
+    return null;
+  }
 
-let lastDate='';
 
-const body=sorted.map(x=>{
+  const [
+    y,
+    m,
+    d
+  ] =
+  v.split('-')
+   .map(Number);
 
-const d=fmtDate(x.ts);
 
-const showDate=d!==lastDate;
+  return new Date(
+    y,
+    m-1,
+    d,
+    23,59,59,999
+  );
 
-lastDate=d;
-
-return `
-<tr>
-<td>${showDate?esc(d):''}</td>
-<td>${fmtTime(x.ts)}</td>
-<td>${esc(x.text)}</td>
-</tr>
-`;
-
-}).join('');
-
-const start=
-sorted.length?fmtDate(sorted[0].ts):'—';
-
-const end=
-sorted.length?fmtDate(sorted[sorted.length-1].ts):'—';
-
-return `
-<div class="print-header">
-
-<div class="company-name">
-EPI UPS (Bangladesh) Limited
-</div>
-
-<div class="report-main-title">
-${title}
-</div>
-
-<div class="report-info">
-
-<div>
-<b>Name:</b> MD Habibullah<br>
-<b>Designation:</b> Engineer, Business Development
-</div>
-
-<div>
-<b>Start Date:</b> ${start}<br>
-<b>End Date:</b> ${end}
-</div>
-
-</div>
-</div>
-
-<table class="print-table">
-
-<thead>
-<tr>
-<th>Date</th>
-<th>Time</th>
-<th>Activity</th>
-</tr>
-</thead>
-
-<tbody>
-
-${body||
-'<tr><td colspan="3">No activities in this period.</td></tr>'}
-
-</tbody>
-
-</table>
-
-<div class="signature-block">
-
-<div class="signature-col">
-<div class="signature-line"></div>
-<div class="signature-name">MD Habibullah</div>
-<div>Engineer, Business Development</div>
-</div>
-
-<div class="signature-col">
-<div class="signature-line"></div>
-<div class="signature-name">Admin</div>
-<div>Name: ____________________</div>
-<div>Designation: ______________</div>
-</div>
-
-</div>
-`;
 }
 
 
-/* ==============================
-   PRINT / CSV
-================================ */
+/* =====================================================
+   PRINT REPORT HTML
+===================================================== */
+
+function buildPrintReport(
+  type,
+  rows
+){
+
+  const title =
+    type === 'week'
+    ?
+    'Weekly Work Report'
+    :
+    'Monthly Work Report';
+
+
+  const sorted =
+    [...rows].sort(
+      (a,b) =>
+        new Date(a.ts) -
+        new Date(b.ts)
+    );
+
+
+  let lastDate = '';
+
+
+  const body =
+    sorted
+      .map(
+        x => {
+
+          const d =
+            fmtDate(x.ts);
+
+
+          const showDate =
+            d !== lastDate;
+
+
+          lastDate = d;
+
+
+          return `
+
+          <tr>
+
+            <td>
+              ${
+                showDate
+                ?
+                esc(d)
+                :
+                ''
+              }
+            </td>
+
+            <td>
+              ${fmtTime(x.ts)}
+            </td>
+
+            <td>
+              ${esc(x.text)}
+            </td>
+
+          </tr>
+
+          `;
+
+        }
+      )
+      .join('');
+
+
+  const start =
+    sorted.length
+    ?
+    fmtDate(
+      sorted[0].ts
+    )
+    :
+    '—';
+
+
+  const end =
+    sorted.length
+    ?
+    fmtDate(
+      sorted[
+        sorted.length-1
+      ].ts
+    )
+    :
+    '—';
+
+
+  return `
+
+  <div class="print-header">
+
+    <div class="company-name">
+      EPI UPS (Bangladesh) Limited
+    </div>
+
+    <div class="report-main-title">
+      ${title}
+    </div>
+
+    <div class="report-info">
+
+      <div>
+
+        <b>Name:</b>
+        MD Habibullah
+
+        <br>
+
+        <b>Designation:</b>
+        Engineer, Business Development
+
+      </div>
+
+
+      <div>
+
+        <b>Start Date:</b>
+        ${start}
+
+        <br>
+
+        <b>End Date:</b>
+        ${end}
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <table class="print-table">
+
+    <thead>
+
+      <tr>
+
+        <th>
+          Date
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Activity
+        </th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      ${
+        body
+        ||
+        `
+        <tr>
+
+          <td colspan="3">
+            No activities in this period.
+          </td>
+
+        </tr>
+        `
+      }
+
+    </tbody>
+
+  </table>
+
+
+  <div class="signature-block">
+
+    <div class="signature-col">
+
+      <div class="signature-line">
+      </div>
+
+      <div class="signature-name">
+        MD Habibullah
+      </div>
+
+      <div>
+        Engineer, Business Development
+      </div>
+
+    </div>
+
+
+    <div class="signature-col">
+
+      <div class="signature-line">
+      </div>
+
+      <div class="signature-name">
+        Admin
+      </div>
+
+      <div>
+        Name: ____________________
+      </div>
+
+      <div>
+        Designation: ______________
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
 
 function printReport(type){
 
-renderReport(type);
+  /*
+     Generate the latest report first.
+  */
 
-const page=
-document.getElementById(
-type==='week'?'weekly':'monthly'
-);
+  renderReport(type);
 
-document.querySelectorAll('.page')
-.forEach(p=>p.classList.remove('print-active'));
 
-page.classList.add('print-active');
+  const page =
+    document.getElementById(
+      type === 'week'
+      ?
+      'weekly'
+      :
+      'monthly'
+    );
 
-document.title=
-type==='week'
-?'Weekly Work Report'
-:'Monthly Work Report';
 
-setTimeout(()=>{
-window.print();
-},50);
+  /*
+     Hide every other page.
+  */
+
+  document
+    .querySelectorAll('.page')
+    .forEach(
+      p =>
+        p.classList
+          .remove(
+            'print-active'
+          )
+    );
+
+
+  /*
+     Activate only this page.
+  */
+
+  page.classList
+    .add(
+      'print-active'
+    );
+
+
+  document.title =
+    type === 'week'
+    ?
+    'Weekly Work Report'
+    :
+    'Monthly Work Report';
+
+
+  setTimeout(
+    () => {
+
+      window.print();
+
+    },
+    100
+  );
+
 }
 
+
+/* =====================================================
+   CSV EXPORT
+===================================================== */
 
 function exportCsv(type){
 
-renderReport(type);
+  renderReport(type);
 
-const rows=
-window.currentReport.rows;
 
-let csv='Date,Time,Activity\n';
+  const rows =
+    window.currentReport.rows;
 
-csv+=rows.map(x=>[
-fmtDate(x.ts),
-fmtTime(x.ts),
-x.text
-].map(v=>'"'+
-String(v).replaceAll('"','""')
-+'"').join(',')).join('\n');
 
-const a=document.createElement('a');
+  let csv =
+    'Date,Time,Activity\n';
 
-a.href=
-URL.createObjectURL(
-new Blob([csv],{type:'text/csv'})
-);
 
-a.download=
-(type==='week'?'weekly':'monthly')+
-'-work-report.csv';
+  csv +=
+    rows
+      .map(
+        x => [
 
-a.click();
+          fmtDate(x.ts),
+
+          fmtTime(x.ts),
+
+          x.text
+
+        ]
+        .map(
+          v =>
+            '"' +
+            String(v)
+              .replaceAll(
+                '"',
+                '""'
+              ) +
+            '"'
+        )
+        .join(',')
+      )
+      .join('\n');
+
+
+  const a =
+    document.createElement('a');
+
+
+  a.href =
+    URL.createObjectURL(
+      new Blob(
+        [csv],
+        {
+          type:'text/csv'
+        }
+      )
+    );
+
+
+  a.download =
+    (
+      type === 'week'
+      ?
+      'weekly'
+      :
+      'monthly'
+    ) +
+    '-work-report.csv';
+
+
+  a.click();
+
 }
 
 
-/* ==============================
-   DELETE MONTH
-================================ */
+/* =====================================================
+   DELETE SELECTED MONTH
+===================================================== */
 
 async function deleteSelectedMonth(){
 
-const v=document.getElementById(
-'deleteMonth'
-)?.value;
+  const v =
+    document
+      .getElementById(
+        'deleteMonth'
+      )
+      ?.value;
 
-if(!v){
-toast('Please select a month first');
-return;
+
+  if(!v){
+
+    toast(
+      'Please select a month first'
+    );
+
+    return;
+  }
+
+
+  const [
+    y,
+    m
+  ] =
+  v.split('-')
+   .map(Number);
+
+
+  const rows =
+    data.filter(
+      x => {
+
+        const d =
+          new Date(x.ts);
+
+
+        return (
+          d.getFullYear() === y &&
+          d.getMonth() === m-1
+        );
+
+      }
+    );
+
+
+  if(!rows.length){
+
+    toast(
+      'No data found for that month'
+    );
+
+    return;
+  }
+
+
+  if(
+    !confirm(
+      `Delete all ${rows.length} activities from ${v}? This cannot be undone.`
+    )
+  ){
+
+    return;
+  }
+
+
+  const ids =
+    rows.map(
+      x => x.id
+    );
+
+
+  const {
+    error
+  } =
+  await db
+    .from('work_reports')
+    .delete()
+    .in(
+      'id',
+      ids
+    );
+
+
+  if(error){
+
+    toast(
+      'Delete failed: ' +
+      error.message
+    );
+
+    return;
+  }
+
+
+  await loadData();
+
+
+  renderToday();
+
+  renderTodayPage();
+
+  renderReport('week');
+
+  renderReport('month');
+
+
+  toast(
+    `${rows.length} activities deleted`
+  );
+
 }
 
-const [y,m]=v.split('-').map(Number);
 
-const rows=data.filter(x=>{
-
-const d=new Date(x.ts);
-
-return d.getFullYear()===y&&
-d.getMonth()===m-1;
-});
-
-if(!rows.length){
-toast('No data found for that month');
-return;
-}
-
-if(!confirm(
-`Delete all ${rows.length} activities from ${v}? This cannot be undone.`
-))return;
-
-const ids=rows.map(x=>x.id);
-
-const {error}=await db
-.from('work_reports')
-.delete()
-.in('id',ids);
-
-if(error){
-toast('Delete failed: '+error.message);
-return;
-}
-
-await loadData();
-
-renderToday();
-renderReport('week');
-renderReport('month');
-
-toast(`${rows.length} activities deleted`);
-}
-
+/* =====================================================
+   DELETE ALL
+===================================================== */
 
 async function clearAll(){
 
-if(!confirm(
-'Delete ALL your work data? This cannot be undone.'
-))return;
+  if(
+    !confirm(
+      'Delete ALL your work data? This cannot be undone.'
+    )
+  ){
 
-const {error}=await db
-.from('work_reports')
-.delete()
-.not('id','is',null);
+    return;
+  }
 
-if(error){
-toast('Delete failed: '+error.message);
-return;
+
+  const {
+    error
+  } =
+  await db
+    .from('work_reports')
+    .delete()
+    .not(
+      'id',
+      'is',
+      null
+    );
+
+
+  if(error){
+
+    toast(
+      'Delete failed: ' +
+      error.message
+    );
+
+    return;
+  }
+
+
+  data = [];
+
+
+  renderToday();
+
+  renderTodayPage();
+
+  renderReport('week');
+
+  renderReport('month');
+
+
+  toast(
+    'All your data deleted'
+  );
+
 }
 
-data=[];
 
-renderToday();
-renderReport('week');
-renderReport('month');
-
-toast('All your data deleted');
-}
-
-
-/* ==============================
+/* =====================================================
    CLOCK
-================================ */
+===================================================== */
 
 function updateClock(){
 
-document.getElementById('now').textContent=
-new Date().toLocaleString([],{
-weekday:'long',
-year:'numeric',
-month:'short',
-day:'numeric',
-hour:'2-digit',
-minute:'2-digit',
-hour12:true
-});
+  const now =
+    new Date();
+
+
+  document
+    .getElementById(
+      'now'
+    )
+    .textContent =
+
+    now.toLocaleString(
+      [],
+      {
+        weekday:'long',
+        year:'numeric',
+        month:'short',
+        day:'numeric',
+        hour:'2-digit',
+        minute:'2-digit',
+        hour12:true
+      }
+    );
+
 }
 
 
-/* ==============================
-   AUTH SESSION CHECK
-================================ */
-
-db.auth.getSession()
-.then(async({data:{session}})=>{
-
-if(session){
-await startApp();
-}else{
-document.getElementById('loginScreen')
-.classList.remove('hidden');
-}
-});
-
-
-db.auth.onAuthStateChange(
-async(event,session)=>{
-
-if(event==='SIGNED_OUT'){
-document.getElementById('app')
-.classList.add('hidden');
-
-document.getElementById('loginScreen')
-.classList.remove('hidden');
-}
-
-});
-
-
-/* ==============================
-   INITIAL UI
-================================ */
-
-document.querySelectorAll('[data-page]')
-.forEach(b=>{
-b.addEventListener('click',()=>{
-showPage(b.dataset.page);
-});
-});
-
-updateClock();
-
-setInterval(updateClock,30000);
-
-window.addEventListener(
-'afterprint',
-()=>{
-document.querySelectorAll('.page')
-.forEach(p=>p.classList.remove('print-active'));
-}
+setInterval(
+  updateClock,
+  30000
 );
 
 
-/* SERVICE WORKER */
+/* =====================================================
+   SESSION CHECK
+===================================================== */
 
-if('serviceWorker' in navigator){
+db.auth
+  .getSession()
+  .then(
+    async ({
+      data:{
+        session
+      }
+    }) => {
 
-window.addEventListener('load',()=>{
+      if(session){
 
-navigator.serviceWorker
-.register('./sw.js')
-.catch(err=>{
-console.log('Service worker:',err);
-});
+        await startApp();
 
-});
+      }else{
+
+        document
+          .getElementById(
+            'loginScreen'
+          )
+          .classList
+          .remove('hidden');
+
+      }
+
+    }
+  );
+
+
+db.auth
+  .onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
+
+      if(
+        event ===
+        'SIGNED_OUT'
+      ){
+
+        document
+          .getElementById(
+            'app'
+          )
+          .classList
+          .add('hidden');
+
+
+        document
+          .getElementById(
+            'loginScreen'
+          )
+          .classList
+          .remove('hidden');
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   INITIAL
+===================================================== */
+
+updateClock();
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+  'serviceWorker'
+  in navigator
+){
+
+  window
+    .addEventListener(
+      'load',
+      () => {
+
+        navigator
+          .serviceWorker
+          .register(
+            './sw.js'
+          )
+          .catch(
+            err =>
+              console.log(
+                'Service worker:',
+                err
+              )
+          );
+
+      }
+    );
 
 }
+
+
+/* =====================================================
+   AFTER PRINT
+===================================================== */
+
+window.addEventListener(
+  'afterprint',
+  () => {
+
+    document
+      .querySelectorAll(
+        '.page'
+      )
+      .forEach(
+        p =>
+          p.classList
+            .remove(
+              'print-active'
+            )
+      );
+
+  }
+);
+
 </script>
 
 </body>
