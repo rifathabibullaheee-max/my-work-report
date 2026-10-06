@@ -532,6 +532,18 @@ button{
     display:none!important;
   }
 
+  /* Hide the normal Weekly/Monthly report screen completely when printing.
+     Only the generated .print-area should be printed. */
+  .page.print-active .report-controls,
+  .page.print-active .report-actions,
+  .page.print-active .tablewrap{
+    display:none!important;
+  }
+
+  .page.print-active > .card > .print-area{
+    display:block!important;
+  }
+
   .page.print-active .print-area{
     display:block!important;
     width:100%!important;
@@ -546,7 +558,7 @@ button{
   .page.print-active .print-header{
     display:block!important;
     width:100%!important;
-    margin:0 0 6mm!important;
+    margin:0 0 4mm!important;
     padding:0!important;
     text-align:center!important;
   }
@@ -1119,41 +1131,21 @@ button{
 
       <div class="card">
 
-        <div
-          class="row"
-          style="justify-content:space-between;align-items:flex-start">
+        <div class="row"
+             style="justify-content:space-between;align-items:flex-start">
 
-          <div
-            style="flex:1;text-align:center">
+          <div style="flex:1;text-align:center">
 
-            <div
-              style="
-                font-size:20px;
-                font-weight:800;
-                line-height:1.3;
-                margin:0">
-
+            <div style="font-size:20px;font-weight:800;line-height:1.3">
               EPI UPS (Bangladesh) Limited
-
             </div>
 
-            <div
-              style="
-                margin-top:4px;
-                font-size:17px;
-                font-weight:700;
-                line-height:1.3">
-
+            <div style="margin-top:4px;font-size:17px;font-weight:700;line-height:1.3">
               Weekly Work Report
-
             </div>
 
-            <div
-              class="notice"
-              style="margin-top:6px">
-
+            <div class="notice" style="margin-top:6px">
               Review and edit before printing
-
             </div>
 
           </div>
